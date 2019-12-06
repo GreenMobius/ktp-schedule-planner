@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://www.gstatic.com/firebasejs/7.5.2/firebase.js"></script>
+		<script>
+			// Your web app's Firebase configuration
+			var firebaseConfig = {
+			apiKey: "AIzaSyAEDMbvbs6q_Z22HVr0-ypGGQW7GA8srUk",
+			authDomain: "ktp-schedule-planner.firebaseapp.com",
+			databaseURL: "https://ktp-schedule-planner.firebaseio.com",
+			projectId: "ktp-schedule-planner",
+			storageBucket: "ktp-schedule-planner.appspot.com",
+			messagingSenderId: "195731099861",
+			appId: "1:195731099861:web:a42454058015aef2b2925c"
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+			
+			var defaultApp = firebase.app();
+
+			console.log("Default app name: " + defaultApp.name);  // Will print "[DEFAULT]"
+			
+			var defaultDatabase = defaultApp.database();
+
+			var rootRef = defaultDatabase.ref();
+			
+			rootRef.child("hello-world/").once('value').then(function(snapshot) {
+				console.log(snapshot.val());
+			});
+		</script>
+	</head>
+	<body>
+		<p>Check console for message</p>
+	</body>
+</html>
