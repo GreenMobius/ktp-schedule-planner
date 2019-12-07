@@ -4,6 +4,7 @@
 		<script src="https://www.gstatic.com/firebasejs/7.5.2/firebase.js"></script>
 		<script>
 			// Your web app's Firebase configuration
+			
 			var firebaseConfig = {
 			apiKey: "AIzaSyAEDMbvbs6q_Z22HVr0-ypGGQW7GA8srUk",
 			authDomain: "ktp-schedule-planner.firebaseapp.com",
@@ -29,13 +30,13 @@
 			});
 
 			var user = "temporaryUser" //TODO: get logged in user
-			function submitCourse(){
+			function search(){//TODO: seach users
 				//var crn = document.getElementById("crn").value;
 				var username = documents.getElementById("username").value;
 				var quarter = document.getElementById("quarter").value;
 				var year = document.getElementById("year").value;
-				//add
 				console.log(quarter)
+
 			}
 
 			function load() {
@@ -52,6 +53,9 @@
 					opt.innerHTML = `${year-i}-${year-i+1}`;
 					select.appendChild(opt);
 				}
+
+
+
 			}
 			
 		</script>
@@ -71,6 +75,7 @@
 		<br>
 		<!--<br>CRN: <input type="text" id="crn"><br>-->
 		<br>Username: <input type="text" id="crn"><br>
-		<br><button onclick="submitCourse()">Search</button><br>
+		<br><button onclick="search()">Search</button><br>
+		<br><button onclick="selectUser()">Search</button><br>
 	</body>
 </html>
