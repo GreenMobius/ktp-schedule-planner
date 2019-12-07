@@ -1,7 +1,6 @@
 package DatabaseManagement;
 
 import DataStructures.ClassManagement.ClassInfo;
-import DataStructures.ClassManagement.Quarter;
 import DataStructures.ClassManagement.Section;
 
 import java.io.BufferedReader;
@@ -47,27 +46,51 @@ public class DBCaller {
     private static ArrayList<Section> AddSectionToDBFromCalendar(List<String> buffer, ArrayList<Section> coveredSections) {
         //There should be 7 lines of information that are used to decode the .ics file
         String summaryClass = buffer.get(0).replace("SUMMARY:", ""); //get rid of the "SUMMARY:" start
+
         String attendanceAndProfInfo = buffer.get(1); //TODO: figure out how to get this information together
+
         String location = buffer.get(2).replace("LOCATION:", "");
+
         String startTime = buffer.get(3).replace("DTSTART:", "");
         String endTime = buffer.get(4).replace("DTEND:", "");
+        startTime = startTime.substring(startTime.indexOf("T")+1);
+        endTime = endTime.substring(startTime.indexOf("T")+1);
+
         String quarterAndYear = buffer.get(5).replace("CATEGORIES:","");
+
         String specificInfo = buffer.get(6);    //should be basically a repeat of summaryClass,
                                                 // not sure we need this but I'll leave it here in case
 
+        String prof = attendanceAndProfInfo.substring(attendanceAndProfInfo.indexOf(":") + 1);
+
+        ClassInfo classInfo;
+        if((classInfo = TryGetClassInfo(summaryClass, quarterAndYear)) == null) {
+            classInfo = new ClassInfo(summaryClass, quarterAndYear);
+        }
+
+        Section createdSection;
+        if((createdSection = TryGetSectionForClassInfo(classInfo, location, startTime, endTime)) == null){
+            createdSection = new Section(prof, classInfo, location, startTime, endTime);
 
 
-        Section createdSection = new Section();
-        ClassInfo q = new ClassInfo();
+        }
+
+        coveredSections.add(createdSection);
 
 
         return coveredSections;
     }
 
+    private static ClassInfo TryGetClassInfo(String summaryClass, String quarterAndYear) {
 
-    private static boolean CheckIfQuarterExistsInDB(ClassInfo q){
 
-        return false;
+        return null;
+    }
+
+
+    private static Section TryGetSectionForClassInfo(ClassInfo q, String location, String startTime, String endTime){
+
+        return null;
     }
 
 }
