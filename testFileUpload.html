@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://www.gstatic.com/firebasejs/7.5.2/firebase.js"></script>
+        <script src="JSServer/DBCaller.js"></script>
+        <script>
+			function uploadCalendar(){//TODO
+				var file = document.getElementById("calendar").files[0];
+                console.log(file)
+                var results = parseICS(file)
+                console.log(results)
+                return file
+			}
+            function uploaddeleteUserAndDataCalendar(){//TODO
+			}
+		</script>
+	</head>
+	<body>
+		<!--<br>CRN: <input type="text" id="crn"><br>-->
+        <input type="file" accept="file_extension|.ics" id="calendar" onchange="openFile(event)">
+		<br><button onclick="uploadCalendar()">Upload Calendar</button><br>
+		<br><button onclick="deleteUserAndData()">Delete Data And Account</button><br>
+	</body>
+</html>
