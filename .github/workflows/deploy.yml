@@ -5,12 +5,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Initialize
-      uses: pizzafox/firebase-action@1.0.7
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      with:
-        args: init
+  
+    - run: cd ../..
     
     - name: Deploy
       uses: pizzafox/firebase-action@1.0.7
