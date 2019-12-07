@@ -49,41 +49,17 @@ var openFile = function(event) {
             }
             index = 1+index;
         }
+        console.log(coveredSections)
+        return coveredSections;
     };
     var text = reader.readAsText(input.files[0]);
-    /*console.log("text")
-    console.log(textResults)
-    let arrayOfLines = textResults.match(/[^\r\n]+/g);
-    console.log("arr of lines")
-    console.log(arrayOfLines.length)*/
-    
-    /*var st;
-    arrBuff.
-    while ((st = readLine(reader)) != null) {
-        if(st.equals("BEGIN:VEVENT")) {
-            console.log("Recording event...");
 
-            var buffer;
-            var readingFile;
-            while((readingFile = readLine(reader)) != "END:VEVENT") {
-                buffer.add(readingFile);
-            }
-            if(buffer.size() != 7) {
-                throw new Exception("Error with .ics file, buffer size not large enough");
-            }
-            coveredSections = AddSectionToDBFromCalendar(buffer, coveredSections);
-
-
-        }
-        console.log(st);
-
-
-    }*/
 };
 
 function AddSectionToDBFromCalendar(section) {
     console.log("section",section)
     //There should be 7 lines of information that are used to decode the .ics file
+    var data = []
     var summaryClass = section[1].replace("SUMMARY:", ""); //get rid of the "SUMMARY:" start
 
     var attendanceAndProfInfo = section[2]; //TODO: figure out how to get this information together
@@ -114,22 +90,5 @@ function AddSectionToDBFromCalendar(section) {
 
     var prof = attendanceAndProfInfo.substring(attendanceAndProfInfo.indexOf(":") + 1);
 
-    //TODO return info
-
-    /*ClassInfo classInfo;
-    if((classInfo = TryGetClassInfo(summaryClass, quarterAndYear)) == null) {
-        classInfo = new ClassInfo(summaryClass, quarterAndYear);
-        StoreClassInfo(classInfo);
-    }
-
-    Section createdSection;
-    if((createdSection = TryGetSectionForClassInfo(classInfo, location, startTime, endTime)) == null){
-        createdSection = new Section(profName, classInfo, location, startTime, endTime);
-        StoreSection(createdSection);
-    }
-
-    coveredSections.add(createdSection);
-
-
-    return coveredSections;*/
+    return {'SUMMARY' : summaryClass, 'PROFNAME': profName, "LOCATION": location, "STARTTIME": startTime, "ENDTIME": endTime, "QUARTERANDYEAR": quarterAndYear, "SPECIFICNFO": specificInfo, "PROF": prof}
 };
