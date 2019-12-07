@@ -3,7 +3,6 @@
 	<head>
 		<script src="https://www.gstatic.com/firebasejs/7.5.2/firebase.js"></script>
 		<script>
-			// Your web app's Firebase configuration
 			var firebaseConfig = {
 			apiKey: "AIzaSyAEDMbvbs6q_Z22HVr0-ypGGQW7GA8srUk",
 			authDomain: "ktp-schedule-planner.firebaseapp.com",
@@ -16,30 +15,56 @@
 			// Initialize Firebase
 			firebase.initializeApp(firebaseConfig);
 			
-			var defaultApp = firebase.app();
-
-			console.log("Default app name: " + defaultApp.name);  // Will print "[DEFAULT]"
-			
-			var defaultDatabase = defaultApp.database();
-
-			var rootRef = defaultDatabase.ref();
-			
-			rootRef.child("hello-world/").once('value').then(function(snapshot) {
-				console.log(snapshot.val());
-			});
+			var db = firebase.firestore();
 
 			var user = "temporaryUser" //TODO: get logged in user
-			function submitCourse(){
+			
+			
+			function search(username){
 				//var crn = document.getElementById("crn").value;
-				var username = documents.getElementById("username").value;
-				var quarter = document.getElementById("quarter").value;
-				var year = document.getElementById("year").value;
-				//add
-				console.log(quarter)
+				//var username = document.getElementById("username").value;
+				/*var quarter = document.getElementById("quarter").value;
+				var year = document.getElementById("year").value;*/
+				console.log(username);
+				
+				db.collection("students").doc(username).get().then((documentSnapshot) => {
+					//console.dir(documentSnapshot);
+					var studentDataDocumentSnapshot = documentSnapshot.data();
+					//console.dir(studentDataDocumentSnapshot);
+					document.getElementById("demoOutput").innerHTML = "Found";
+
+					/*console.log("For each course...");
+					documentSnapshot.get("Courses").forEach(element => console.log(element));*/
+					
+					
+					//console.log(studentDataDocumentSnapshot["Courses"][0]);
+					
+					
+					/*studentDataDocumentSnapshot["Courses"][0].get().then(snapshot => {
+						console.log("Specific data:");
+						console.log(snapshot.data());
+					});*/
+					
+					var tempStudentCourses =  {Courses : {}};
+					
+					studentDataDocumentSnapshot["Courses"].forEach(thisCourseSnapshot => {
+						thisCourseSnapshot.get().then(courseSnapshot => {
+							//console.log("Student has course:");
+							//console.log(courseSnapshot.data());
+							tempStudentCourses["Courses"][courseSnapshot.data()["Course"]] = courseSnapshot.data();
+							//console.dir(tempStudentCourses);
+						});
+					});
+					
+					console.log("All courses loaded (beware of async):");
+					console.dir(tempStudentCourses);
+				});
+
 			}
 
 			function load() {
-				var select = document.getElementById('year');
+				console.log("Search page loaded");
+				/*var select = document.getElementById('year');
 				var year = new Date().getFullYear();
 
 				for (var i = 0; i < 5 ; i++) {
@@ -51,7 +76,23 @@
 					opt.value = yearsShort;
 					opt.innerHTML = `${year-i}-${year-i+1}`;
 					select.appendChild(opt);
-				}
+				}*/
+			}
+			
+			function demoFirestoreButton() {
+				console.log("Logging all students' info...");
+				
+				db.collection("students").get().then((querySnapshot) => {
+					querySnapshot.forEach((doc) => {
+						console.log(`${doc.id} =>`);
+						console.dir(doc.data());
+					});
+					//console.log(querySnapshot.docs[0].data());
+					/*querySnapshot.get("Courses").then((doc) => {
+						console.log(`${doc.id} =>`);
+						console.dir(doc.data());
+					});*/
+				});
 			}
 			
 		</script>
@@ -70,7 +111,11 @@
 			</select>
 		<br>
 		<!--<br>CRN: <input type="text" id="crn"><br>-->
-		<br>Username: <input type="text" id="crn"><br>
-		<br><button onclick="submitCourse()">Search</button><br>
+		<br>Username: <input type="text" id="username" value="chatfitt"/><br>
+		<br><button onclick="search(document.getElementById(&quot;username&quot;).value)">Search</button><br>
+		<br><p id="demoOutput">This text will change if student found</p><br>
+		<br/><button onclick="demoFirestoreButton()">Demo Firestore Button</button><br/>
+		<br/>
+		<iframe style="width:100%; height:300px;" src="userSchedule.html"></iframe>
 	</body>
 </html>
