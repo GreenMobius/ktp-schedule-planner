@@ -1,0 +1,27 @@
+{
+  "crn-map" : {
+    "2102" : {
+      "course-section" : "MA375-03",
+      "name" : "Discrete & Comb Algebra II"
+    },
+    "2340" : "Tech & Professional Communictn",
+    "2399" : "Data Struct & Algorithm Anlys",
+    "2403" : "Practical Security II",
+    "2475" : "General Chemistry I",
+    "2483" : "General Chemistry I Lab"
+  },
+  "hello-world" : "Hi there!",
+  "students" : {
+    "firebase-auth-token-thing-here" : {
+      "courses" : {
+        "chem111-01" : 2475,
+        "chem111l-53" : 2483,
+        "csse230-04" : 2399,
+        "csse290-01" : 2403,
+        "ma375-03" : 2102,
+        "rh330-03" : 2340
+      },
+      "rose-username" : "budakrc"
+    }
+  }
+}
