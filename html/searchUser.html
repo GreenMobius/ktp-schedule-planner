@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://www.gstatic.com/firebasejs/7.5.2/firebase.js"></script>
+		<script>
+			// Your web app's Firebase configuration
+			var firebaseConfig = {
+			apiKey: "AIzaSyAEDMbvbs6q_Z22HVr0-ypGGQW7GA8srUk",
+			authDomain: "ktp-schedule-planner.firebaseapp.com",
+			databaseURL: "https://ktp-schedule-planner.firebaseio.com",
+			projectId: "ktp-schedule-planner",
+			storageBucket: "ktp-schedule-planner.appspot.com",
+			messagingSenderId: "195731099861",
+			appId: "1:195731099861:web:a42454058015aef2b2925c"
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+			
+			var defaultApp = firebase.app();
+
+			console.log("Default app name: " + defaultApp.name);  // Will print "[DEFAULT]"
+			
+			var defaultDatabase = defaultApp.database();
+
+			var rootRef = defaultDatabase.ref();
+			
+			rootRef.child("hello-world/").once('value').then(function(snapshot) {
+				console.log(snapshot.val());
+			});
+
+			var user = "temporaryUser" //TODO: get logged in user
+			function submitCourse(){
+				//var crn = document.getElementById("crn").value;
+				var username = documents.getElementById("username").value;
+				var quarter = document.getElementById("quarter").value;
+				var year = document.getElementById("year").value;
+				//add
+				console.log(quarter)
+			}
+
+			function load() {
+				var select = document.getElementById('year');
+				var year = new Date().getFullYear();
+
+				for (var i = 0; i < 5 ; i++) {
+					var opt = document.createElement('option');
+					var startYearShort = `${year-i}`.substring(2);
+					var endYearShort = `${year-i+1}`.substring(2);
+					var yearsShort = `${startYearShort}${endYearShort}`
+					console.log(yearsShort);
+					opt.value = yearsShort;
+					opt.innerHTML = `${year-i}-${year-i+1}`;
+					select.appendChild(opt);
+				}
+			}
+			
+		</script>
+	</head>
+	<body onload="load()">
+		<br> Year:
+			<select id="year">
+			</select>
+		<br>
+		<br> Quarter:
+			<select id="quarter">
+				<option value="FALL">Fall</option>
+				<option value="WINTER">Winter</option>
+				<option value="SPRING">Spring</option>
+				<option value="SUMMER">Summer</option>
+			</select>
+		<br>
+		<!--<br>CRN: <input type="text" id="crn"><br>-->
+		<br>Username: <input type="text" id="crn"><br>
+		<br><button onclick="submitCourse()">Search</button><br>
+	</body>
+</html>

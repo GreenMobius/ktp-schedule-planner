@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<script src="https://www.gstatic.com/firebasejs/7.5.2/firebase.js"></script>
+		<script>
+			function uploadCalendar(){//TODO
+				var file = document.getElementById("calendar").files[0];
+				console.log(file)
+                return file
+			}
+		</script>
+	</head>
+	<body>
+		<!--<br>CRN: <input type="text" id="crn"><br>-->
+        <input type="file" accept="file_extension|.ics" id="calendar">
+		<br><button onclick="uploadCalendar()">Upload Calendar</button><br>
+	</body>
+</html>
