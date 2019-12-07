@@ -76,6 +76,7 @@ public class DBCaller {
     }
 
     private static ArrayList<Section> AddSectionToDBFromCalendar(List<String> buffer, ArrayList<Section> coveredSections) {
+        //TODO get rid of repeat additions
         //There should be 7 lines of information that are used to decode the .ics file
         String summaryClass = buffer.get(0).replace("SUMMARY:", ""); //get rid of the "SUMMARY:" start
 
