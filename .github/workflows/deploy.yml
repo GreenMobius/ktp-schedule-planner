@@ -5,7 +5,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Firebase GitHub Action
+    - name: Initialize
+      uses: pizzafox/firebase-action@1.0.7
+      env:
+        PROJECT_ID: "ktp-schedule-planner"
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      with:
+        args: init
+    
+    - name: Deploy
       uses: pizzafox/firebase-action@1.0.7
       env:
         PROJECT_ID: "ktp-schedule-planner"
