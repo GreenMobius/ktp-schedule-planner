@@ -14,10 +14,16 @@
 			messagingSenderId: "195731099861",
 			appId: "1:195731099861:web:a42454058015aef2b2925c"
 			};
+			
+			/*const firebase = require("firebase");
+			// Required for side-effects
+			require("firebase/firestore");*/
+			
 			// Initialize Firebase
 			firebase.initializeApp(firebaseConfig);
 			
-			var defaultApp = firebase.app();
+
+			/*var defaultApp = firebase.app();
 
 			console.log("Default app name: " + defaultApp.name);  // Will print "[DEFAULT]"
 			
@@ -27,20 +33,32 @@
 			
 			rootRef.child("hello-world/").once('value').then(function(snapshot) {
 				console.log(snapshot.val());
-			});
+			});*/
+			
+			var db = firebase.firestore();
 
 			var user = "temporaryUser" //TODO: get logged in user
 			function search(){//TODO: seach users
 				//var crn = document.getElementById("crn").value;
-				var username = documents.getElementById("username").value;
-				var quarter = document.getElementById("quarter").value;
-				var year = document.getElementById("year").value;
-				console.log(quarter)
+				var username = document.getElementById("username").value;
+				/*var quarter = document.getElementById("quarter").value;
+				var year = document.getElementById("year").value;*/
+				console.log(username);
+				
+				db.collection("students").doc(username).get().then((documentSnapshot) => {
+					//console.dir(documentSnapshot);
+					console.dir(documentSnapshot.data());
+					document.getElementById("demoOutput").innerHTML = "Found";
+					console.dir(documentSnapshot.ref.get("Courses").then((coursesDocumentSnapshot) => {
+						console.dir(coursesDocumentSnapshot);
+					}));
+				});
 
 			}
 
 			function load() {
-				var select = document.getElementById('year');
+				console.log("Page loaded");
+				/*var select = document.getElementById('year');
 				var year = new Date().getFullYear();
 
 				for (var i = 0; i < 5 ; i++) {
@@ -52,10 +70,23 @@
 					opt.value = yearsShort;
 					opt.innerHTML = `${year-i}-${year-i+1}`;
 					select.appendChild(opt);
-				}
-
-
-
+				}*/
+			}
+			
+			function demoFirestoreButton() {
+				console.log("Logging all students' info...");
+				
+				db.collection("students").get().then((querySnapshot) => {
+					querySnapshot.forEach((doc) => {
+						console.log(`${doc.id} =>`);
+						console.dir(doc.data());
+					});
+					//console.log(querySnapshot.docs[0].data());
+					/*querySnapshot.get("Courses").then((doc) => {
+						console.log(`${doc.id} =>`);
+						console.dir(doc.data());
+					});*/
+				});
 			}
 			
 		</script>
@@ -74,8 +105,9 @@
 			</select>
 		<br>
 		<!--<br>CRN: <input type="text" id="crn"><br>-->
-		<br>Username: <input type="text" id="crn"><br>
+		<br>Username: <input type="text" id="username" value="chatfitt"/><br>
 		<br><button onclick="search()">Search</button><br>
-		<br><button onclick="selectUser()">Search</button><br>
+		<br><p id="demoOutput">This text will change if student found</p><br>
+		<br><button onclick="demoFirestoreButton()">Demo Firestore Button</button><br>
 	</body>
 </html>
