@@ -1,4 +1,4 @@
-package DatabaseManagement.StudentManagement;
+package DataStructures.StudentManagement;
 
 public class Student {
     private String firstName;

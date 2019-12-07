@@ -1,6 +1,6 @@
-package DatabaseManagement.StudentManagement;
+package DataStructures.StudentManagement;
 
-import DatabaseManagement.ClassManagement.Section;
+import DataStructures.ClassManagement.Section;
 
 import java.util.List;
 

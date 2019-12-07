@@ -1,4 +1,4 @@
-package DatabaseManagement.ClassManagement;
+package DataStructures.ClassManagement;
 
 public class Section {
     private String professorUsername;
