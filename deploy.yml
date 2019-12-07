@@ -12,4 +12,4 @@ jobs:
     - name: Confirm project
       run: firebase use ktp-schedule-planner --token 1//0fTxQ80iS7LQpCgYIARAAGA8SNwF-L9IrmS5h2t88T32St28S6ltQ0DNH6xkwLVsNUOlzes2UdSWpK8SfcqZmivLmrrUT9oqXJlU
     - name: Redeploy firebase
-      run: firebase deploy --token 1//0fTxQ80iS7LQpCgYIARAAGA8SNwF-L9IrmS5h2t88T32St28S6ltQ0DNH6xkwLVsNUOlzes2UdSWpK8SfcqZmivLmrrUT9oqXJlU
+      run: firebase deploy --only hosting --token 1//0fTxQ80iS7LQpCgYIARAAGA8SNwF-L9IrmS5h2t88T32St28S6ltQ0DNH6xkwLVsNUOlzes2UdSWpK8SfcqZmivLmrrUT9oqXJlU
