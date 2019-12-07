@@ -28,9 +28,18 @@
 			rootRef.child("hello-world/").once('value').then(function(snapshot) {
 				console.log(snapshot.val());
 			});
+
+			var user = "temporaryUser" //TODO: get logged in user
+			function submitCourse(){
+				var crn = document.getElementById("crn").value;
+				console.log(crn)
+
+			}
 		</script>
 	</head>
 	<body>
 		<p>Check console for message</p>
+		<br>CRN: <input type="text" id="crn"><br>
+		<button onclick="submitCourse()">Submit</button>
 	</body>
 </html>
