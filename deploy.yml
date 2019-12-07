@@ -1,15 +1,7 @@
-name: firebase_deploy
-
-on: [push]
-
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: /
-    - name: Confirm project
-      run: firebase use ktp-schedule-planner --token 1//0fTxQ80iS7LQpCgYIARAAGA8SNwF-L9IrmS5h2t88T32St28S6ltQ0DNH6xkwLVsNUOlzes2UdSWpK8SfcqZmivLmrrUT9oqXJlU
-    - name: Redeploy firebase
-      run: firebase deploy --only hosting --token 1//0fTxQ80iS7LQpCgYIARAAGA8SNwF-L9IrmS5h2t88T32St28S6ltQ0DNH6xkwLVsNUOlzes2UdSWpK8SfcqZmivLmrrUT9oqXJlU
+- name: Firebase GitHub Action
+  uses: pizzafox/firebase-action@1.0.7
+  env:
+    PROJECT_ID: "google-cloud-or-firebase-project-id"
+    FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  with:
+    args: deploy
